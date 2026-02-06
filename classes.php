@@ -1,33 +1,43 @@
 <?php
 
-class NextOrder{
-    public string $produtos;
-    protected string $clienteNormal;
-    public string $nomeCliente;
-    protected string $clientePremium;
-    private string $CPF;
+abstract class Cliente{ // Declara a classe cliente
+    public string $email; // declara o atributo email
+    public string $nomeCliente; // declara o atributo nomeCliente
+    protected string $tipoCliente; // declara o atributo tipoCliente
 
-    public function __construct($CPF, )
+    public function __construct(string $email, string $nomeCliente, string $tipoCliente) 
     {
-        throw new \Exception('Not implemented');
+        $this->email = $email;
+        $this->nomeCliente = $nomeCliente;
+        $this->tipoCliente = $tipoCliente;
+    }
+
+    // abstract public function desconto(float $valor): float;
+}
+
+class ClienteNormal extends Cliente{
+    public function calcular(float $valor): float {
+        return $valor + 0;
+    }
+
+}
+
+class ClientePreumium extends Cliente{
+    public function calculoDesconto(float $valor): float {
+        return $valor * 0.5 ;
     }
 }
 
-class Produto extends NextOrder{
-    public string $nomeProduto;
+class Produto{
+    private string $nomeProduto;
     public float $preco;
-    protected int $estoque;
-    public string $cor;
-    protected string $marca;
+    private int $estoque;
 
-
-    public function __construct($nomeProduto, $preco, $estoque, $marca, $cor)
+    public function __construct($nomeProduto, $preco, $estoque)
     {
         $this->nomeProduto = $nomeProduto;
         $this->preco = $preco;
         $this->estoque = $estoque;
-        $this->marca = $marca;
-        $this->cor = $cor;
     }
 
     public function valor(): void {
@@ -36,13 +46,10 @@ class Produto extends NextOrder{
     }
 
     public function info(): void {
-        echo "Marca: {$this->marca}<br>";
         echo "Nome: {$this->nomeProduto}<br>";
         echo "preço: {$this->preco}<br>";
     }
 }
-
-
 
 
 
